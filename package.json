@@ -1,14 +1,4 @@
 {
-  "name": "sunnov16",
-  "version": "1.0.0",
-  "main": "express.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "coder",
-  "license": "ISC",
-  "description": "learning express",
   "dependencies": {
     "body-parser": "^2.2.0",
     "express": "^5.1.0",
