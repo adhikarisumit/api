@@ -4,6 +4,8 @@
 
 import express from 'express'
 import bodyParser from 'body-parser'
+// import path from 'path'
+// const __dirname=path.__dirname()
 const app = express()
 const port = 3001
 
@@ -14,6 +16,15 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.get("/random", (req, res) => {
     const random = Math.floor(Math.random() * programmingJokes.length)
     res.json(programmingJokes[random])
+
+})
+// app.get("/", (req, res) => {
+//     res.sendFile(path.join(process.cwd(),"index.html"))
+
+// })
+
+app.get("/", (req, res) => {
+    res.json(programmingJokes)
 
 })
 
@@ -122,14 +133,23 @@ app.put('/jokes/:id', (req, res) => { //1
     //     "jokeType":"Paisa matters"
     // }
 })
-
 // delete
-app.delete('/jokes/:id',(req,res)=>{
-    let id = parseInt(req.params.id)
-    id=parseInt(id)
-    res.remove(id)
+app.delete("/jokes/:id", (req, res) => {
+  let id = parseInt(req.params.id);
 
-})
+  // Find index of joke
+  const index = programmingJokes.findIndex(joke => joke.id === id);
+
+  if (index !== -1) {
+    // Remove joke
+    programmingJokes.splice(index, 1);
+    res.status(200).json({ message: `Joke with id ${id} deleted.` });
+  } else {
+    res.status(404).json({ error: "Joke not found." });
+  }
+});
+
+
 
 
 app.patch('/jokes/:id', (req, res) => {
